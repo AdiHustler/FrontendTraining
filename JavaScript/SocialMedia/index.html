@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Like Counter</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+      }
+
+      .image-box {
+        position: relative;
+        width: 350px;
+      }
+
+      .image-box img {
+        width: 100%;
+        display: block;
+        border-radius: 12px;
+      }
+
+      .actions {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 8px 12px;
+        border-radius: 20px;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+      }
+
+      button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 18px;
+      }
+
+      span {
+        font-size: 16px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="image-box">
+      <img
+        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.K33JOeRnu4h0Y3duIU784QHaEK%3Fpid%3DApi&f=1&ipt=9e554344e9a2276302a97247e31fd9e5361042deb918c46882c3550bdf621dd2&ipo=images"
+        alt="Sample Image"
+      />
+
+      <div class="actions">
+        <button id="likeBtn">❤️</button>
+        <span id="likeCount">0</span>
+
+        <button id="dislikeBtn">👎</button>
+        <span id="dislikeCount">0</span>
+      </div>
+    </div>
+
+    <script>
+      let likes = 0
+      let dislikes = 0
+
+      const likeBtn = document.getElementById('likeBtn')
+      const dislikeBtn = document.getElementById('dislikeBtn')
+      const likeCount = document.getElementById('likeCount')
+      const dislikeCount = document.getElementById('dislikeCount')
+
+      likeBtn.addEventListener('click', () => {
+        likes++
+        likeCount.innerText = likes
+      })
+
+      dislikeBtn.addEventListener('click', () => {
+        dislikes++
+        dislikeCount.innerText = dislikes
+      })
+    </script>
+  </body>
+</html>
