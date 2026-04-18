@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hand Cricket Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      .row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0;
+      }
+      .row div {
+        margin: 0 10px;
+      }
+      input {
+        width: 50px;
+        padding: 5px;
+        font-size: 16px;
+        text-align: center;
+      }
+      .score {
+        font-size: 18px;
+        font-weight: bold;
+        margin-left: 20px;
+      }
+      .status {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hand Cricket Game</h1>
+
+    <!-- Batting and Bowling Inputs -->
+    <div class="row">
+      <div>
+        <h3>Batting</h3>
+        <input type="number" id="battingInput" min="1" max="6" />
+      </div>
+      <div>
+        <h3>Bowling</h3>
+        <input type="text" id="bowlingInput" disabled />
+      </div>
+      <div class="score">Total Runs: <span id="totalScore">0</span></div>
+    </div>
+
+    <!-- Previous Runs -->
+    <div class="row">
+      <h3>Previous Runs: <span id="previousRuns">None</span></h3>
+    </div>
+
+    <!-- Game Status -->
+    <div class="status" id="status">
+      Start the game by entering a number and clicking "Play".
+    </div>
+
+    <!-- Play Button -->
+    <button onclick="playGame()">Play</button>
+
+    <script>
+      let totalScore = 0 // To store the total score
+      let previousRuns = [] // To store the previous runs
+
+      function playGame() {
+        const battingInput = parseInt(
+          document.getElementById('battingInput').value,
+        )
+        const bowlingInput = Math.floor(Math.random() * 6) + 1 // Random number between 1 and 6
+        document.getElementById('bowlingInput').value = bowlingInput // Display the bowling input
+
+        if (battingInput < 1 || battingInput > 6 || isNaN(battingInput)) {
+          document.getElementById('status').textContent =
+            'Please enter a valid number between 1 and 6.'
+          return
+        }
+
+        if (battingInput === bowlingInput) {
+          document.getElementById('status').textContent =
+            `Wicket!!! You are out. The bowler bowled ${bowlingInput}.`
+          document.getElementById('battingInput').disabled = true // Disable input after getting out
+        } else {
+          totalScore += battingInput // Add the batting input to the total score
+          previousRuns.push(battingInput) // Store the batting input in the array
+          document.getElementById('status').textContent =
+            `You scored ${battingInput}. The bowler bowled ${bowlingInput}.`
+        }
+
+        // Update the scoreboard
+        document.getElementById('totalScore').textContent = totalScore
+        document.getElementById('previousRuns').textContent =
+          previousRuns.join(', ')
+      }
+    </script>
+  </body>
+</html>

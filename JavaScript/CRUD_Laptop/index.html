@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 50%;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .like,
+      .dislike {
+        cursor: pointer;
+        font-size: 20px;
+        transition: color 0.3s;
+      }
+      .like.active {
+        color: red;
+      }
+      .dislike.active {
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 onclick="populateTable()">Populate Fruits Table</h1>
+
+    <table id="fruitTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fruit Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be dynamically added here -->
+      </tbody>
+    </table>
+
+    <script>
+      const fruits = ['apple', 'mango', 'banana']
+      const tableBody = document.querySelector('#fruitTable tbody')
+
+      // Populate the table with fruits and like/dislike buttons
+      function populateTable() {
+        tableBody.innerHTML = '' // Clear existing rows
+
+        for (let i = 0; i < fruits.length; i++) {
+          const tr = document.createElement('tr') // Create a new row
+
+          // Create index cell
+          const tdIndex = document.createElement('td')
+          tdIndex.textContent = i + 1
+          tr.appendChild(tdIndex)
+
+          // Create fruit name cell
+          const tdFruit = document.createElement('td')
+          tdFruit.textContent = fruits[i]
+          tr.appendChild(tdFruit)
+
+          // Create actions cell
+          const tdActions = document.createElement('td')
+
+          // Create like button
+          const likeBtn = document.createElement('span')
+          likeBtn.classList.add('like')
+          likeBtn.innerHTML = '❤️' // Heart emoji
+          likeBtn.onclick = () =>
+            toggleLikeDislike(i, 'like', likeBtn, dislikeBtn)
+          tdActions.appendChild(likeBtn)
+
+          // Create dislike button
+          const dislikeBtn = document.createElement('span')
+          dislikeBtn.classList.add('dislike')
+          dislikeBtn.innerHTML = '💔' // Broken heart emoji
+          dislikeBtn.onclick = () =>
+            toggleLikeDislike(i, 'dislike', dislikeBtn, likeBtn)
+          tdActions.appendChild(dislikeBtn)
+
+          tr.appendChild(tdActions)
+
+          tableBody.appendChild(tr) // Append the row to the table
+        }
+      }
+
+      // Toggle like/dislike functionality
+      function toggleLikeDislike(index, action, clickedBtn, otherBtn) {
+        if (clickedBtn.classList.contains('active')) {
+          // If the clicked button is already active, deactivate it
+          clickedBtn.classList.remove('active')
+        } else {
+          // Otherwise, activate the clicked button and deactivate the other one
+          clickedBtn.classList.add('active')
+          otherBtn.classList.remove('active')
+        }
+      }
+    </script>
+  </body>
+</html>
